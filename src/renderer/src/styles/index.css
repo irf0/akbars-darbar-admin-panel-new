@@ -1,0 +1,63 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Brand */
+  --color-primary: #a90303;
+  --color-primary-dark: #8f0202;
+  --color-primary-light: #fff0f0;
+  --color-secondary: #3b82f6;
+
+  /* Backgrounds */
+  --color-background: #fbf9f6;
+  --color-surface: #f5f1ec;
+  --color-surface-alt: #f3f4f6;
+
+  /* Text */
+  --color-text: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-disabled: #d1d5db;
+  --color-text-inverse: #ffffff;
+
+  /* Border */
+  --color-border: #e5e7eb;
+  --color-border-focus: #a90303;
+
+  /* Status */
+  --color-success: #22c55e;
+  --color-success-bg: #dcfce7;
+  --color-success-text: #166534;
+  --color-error: #ef4444;
+  --color-error-bg: #fee2e2;
+  --color-error-text: #7f1d1d;
+  --color-warning: #eab308;
+  --color-warning-bg: #fef9c3;
+  --color-info: #3b82f6;
+  --color-info-bg: #dbeafe;
+
+  /* Radius (matches your RN radius scale) */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+[data-sonner-toaster] {
+  --success-bg: var(--color-success-bg);
+  --success-text: var(--color-success-text);
+  --error-bg: var(--color-error-bg);
+  --error-text: var(--color-error-text);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: var(--color-background);
+}
+
+body {
+  display: block;
+}

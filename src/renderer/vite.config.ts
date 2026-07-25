@@ -10,10 +10,6 @@ export default defineConfig({
     resolve: {
       alias: {
         '@renderer': resolve('src/renderer/src'),
-        '@features': resolve('src/renderer/src/features'),
-        '@components': resolve('src/renderer/src/components'),
-        '@store': resolve('src/renderer/src/store'),
-        '@firebase-config': resolve('src/renderer/src/firebase'),
       },
     },
     plugins: [react(), tailwindcss()],
