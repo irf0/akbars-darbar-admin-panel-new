@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { OrderDoc, Customer, Address } from '@renderer/types/order';
 import { fetchCustomer, fetchAddress } from '@renderer/global/services/customerService';
-import { formatMoney } from '@renderer/utils/formatMoney';
+import { formatMoney } from '@renderer/global/utils/formatMoney';
 import { printKOT } from '@renderer/global/services/printService';
-import { riders } from '@renderer/global/constants/riders';
 import { buildMapsLink } from '@renderer/global/utils/mapsLinkGenerator';
+import { useRidersStore } from '@renderer/features/riders/store/useRidersStore';
 import { assignRider } from '@renderer/global/services/orderService';
+import { updateRider } from '@renderer/global/services/riderService';
 
 interface Props {
   order: OrderDoc;
@@ -14,11 +15,20 @@ interface Props {
 }
 
 function OrderDetail({ order, onClose }: Props) {
+  const riders = useRidersStore((state) => state.riders);
+  const availableRiders = riders.filter((rider) => rider.isAvailable !== false);
+
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [address, setAddress] = useState<Address | null>(null);
   const [loading, setLoading] = useState(true);
   const [assigning, setAssigning] = useState(false);
-  const [selectedRider, setSelectedRider] = useState(riders[0]);
+  const [selectedRiderId, setSelectedRiderId] = useState('');
+
+  useEffect(() => {
+    if (!selectedRiderId && availableRiders.length > 0) {
+      setSelectedRiderId(availableRiders[0].id);
+    }
+  }, [availableRiders, selectedRiderId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -61,11 +71,18 @@ function OrderDetail({ order, onClose }: Props) {
       return;
     }
 
+    const selectedRider = riders.find((rider) => rider.id === selectedRiderId);
+    if (!selectedRider) {
+      toast.error('Select a rider first');
+      return;
+    }
+
     setAssigning(true);
     try {
       const mapsLink = buildMapsLink(address);
-      await assignRider(order.id, selectedRider, mapsLink);
-      toast.success(`Assigned to ${selectedRider}`);
+      await assignRider(order.id, selectedRider.name, mapsLink);
+      await updateRider(selectedRider.id, { isAvailable: false });
+      toast.success(`Assigned to ${selectedRider.name}`);
     } catch (error) {
       console.log(error);
       toast.error('Failed to assign rider');
@@ -136,15 +153,17 @@ function OrderDetail({ order, onClose }: Props) {
                     </a>
                   )}
                 </>
+              ) : availableRiders.length === 0 ? (
+                <p className="text-text-secondary text-xs">No riders available</p>
               ) : (
                 <div className="flex gap-2 mt-1">
                   <select
-                    value={selectedRider}
-                    onChange={(e) => setSelectedRider(e.target.value)}
+                    value={selectedRiderId}
+                    onChange={(e) => setSelectedRiderId(e.target.value)}
                     className="border border-border rounded-md px-2 py-1.5 text-sm flex-1">
-                    {riders.map((rider) => (
-                      <option key={rider} value={rider}>
-                        {rider}
+                    {availableRiders.map((rider) => (
+                      <option key={rider.id} value={rider.id}>
+                        {rider.name}
                       </option>
                     ))}
                   </select>

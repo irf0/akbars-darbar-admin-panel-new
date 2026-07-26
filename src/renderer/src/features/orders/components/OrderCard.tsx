@@ -1,6 +1,6 @@
 import { toast } from 'sonner';
 import { OrderDoc } from '@renderer/types/order';
-import { formatMoney } from '@renderer/utils/formatMoney';
+import { formatMoney } from '@renderer/global/utils/formatMoney';
 
 const actionLabel: Record<OrderDoc['orderStatus'], string> = {
   placed: 'Accept',
@@ -50,7 +50,9 @@ function OrderCard({ order, onClick, onAction, onReject }: Props) {
       <div>
         <p className="text-sm font-medium">#{order.orderNumber}</p>
         <p className="text-xs text-gray-500 mt-1">
-          {order.lineItems.map((item) => `${item.quantity}x ${item.name}`).join(', ')}
+          {order.lineItems && order.lineItems.length > 0
+            ? order.lineItems.map((item) => `${item.quantity}x ${item.name}`).join(', ')
+            : 'Order details unavailable'}
         </p>
         <p className="text-xs text-gray-400 mt-1">
           {order.orderType} · {minsAgo} min ago · {formatMoney(order.bill.total)}

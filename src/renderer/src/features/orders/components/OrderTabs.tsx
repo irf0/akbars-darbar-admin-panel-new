@@ -4,7 +4,7 @@ const tabs: { key: OrderStatus; label: string }[] = [
   { key: 'placed', label: 'New' },
   { key: 'preparing', label: 'Preparing' },
   { key: 'ready', label: 'Ready' },
-  { key: 'completed', label: 'Completed' },
+  // { key: 'completed', label: 'Completed' },
 ];
 
 interface Props {
