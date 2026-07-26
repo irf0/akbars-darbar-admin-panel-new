@@ -4,6 +4,8 @@ import { Customer, Address } from '@renderer/types/order';
 
 export const fetchCustomer = async (uid: string): Promise<Customer | null> => {
   const snap = await getDoc(doc(db, 'users', uid));
+  console.log('fetchCustomer uid:', uid, 'exists:', snap.exists(), 'data:', snap.data());
+
   if (!snap.exists()) return null;
   const data = snap.data();
   return {
