@@ -10,7 +10,7 @@
    "paths": {
       "@renderer/*": ["./src/renderer/src/*"],
       "@features/*": ["./src/renderer/src/features/*"],
-      "@components/*": ["src/renderer/src/global/components/*"],
+      "@components/*":["./src/renderer/src/global/components/*"],
       "@store/*": ["./src/renderer/src/store/*"],
       "@firebase-config/*": ["./src/renderer/src/firebase/*"]
     }
