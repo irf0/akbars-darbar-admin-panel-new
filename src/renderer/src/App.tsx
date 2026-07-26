@@ -10,8 +10,14 @@ import AnalyticsScreen from './features/analytics/screens/AnalyticsScreen';
 import SettingsScreen from './features/settings/screens/SettingsScreen';
 import MenuScreen from './features/menu/screens/MenuScreen';
 import DeliveryScreen from './features/delivery/screens/DeliveryScreen';
+import { useAdminSettingsListener } from './global/hooks/useAdminSettingsListener';
+import CouponsScreen from './features/coupons/screens/CouponsScreen';
+import RidersScreen from './features/riders/screens/RidersScreen';
+import ReviewsScreen from './features/reviews/screens/ReviewsScreen';
+import OrderHistoryScreen from './features/orderHistory/screens/orderHistoryScreen';
 
 function App() {
+  useAdminSettingsListener();
   useOrdersListener();
   return (
     <HashRouter>
@@ -31,6 +37,10 @@ function App() {
           <Route path="/delivery" element={<DeliveryScreen />} />
           <Route path="/analytics" element={<AnalyticsScreen />} />
           <Route path="/settings" element={<SettingsScreen />} />
+          <Route path="/coupons" element={<CouponsScreen />} />
+          <Route path="/riders" element={<RidersScreen />} />
+          <Route path="/reviews" element={<ReviewsScreen />} />
+          <Route path="/orders/history" element={<OrderHistoryScreen />} />
         </Route>
       </Routes>
     </HashRouter>

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Outlet } from 'react-router-dom';
 import Sidebar from '@renderer/global/components/Sidebar';
 
