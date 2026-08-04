@@ -15,6 +15,8 @@ Part of the Darbar ecosystem — see the [full real-time architecture](https://g
 
 ## Tech Stack
 
-- Electron (ReactJS vite), TypeScript
+- Electron, TypeScript
 - Firebase (Firestore, Cloud Functions, Auth)
+- Zustand
 - Recharts (analytics charts)
+- Lucide React (icons)
